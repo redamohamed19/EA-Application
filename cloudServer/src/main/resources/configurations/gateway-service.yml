@@ -1,0 +1,18 @@
+# Inside configurations/gateway-service.yml (Served by Config Server)
+server:
+  port: 8085
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: customer-service
+          uri: lb://CUSTOMER-SERVICE
+          predicates:
+            - Path=/demo/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  register-with-eureka: true
+  fetch-registry: true
