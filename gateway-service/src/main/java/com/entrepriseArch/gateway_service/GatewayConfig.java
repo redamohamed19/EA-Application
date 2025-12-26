@@ -40,7 +40,7 @@ public class GatewayConfig {
 
                 // Filter B: Set the target URI to the load-balanced service ID
                 .before(
-                        uri("lb://CUSTOMER-SERVICE")
+                        uri("http://localhost:8081")
                 )
 
                 // 3. Build the final route

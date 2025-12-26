@@ -1,15 +1,21 @@
-# Inside configurations/gateway-service.yml (Served by Config Server)
 server:
   port: 8085
 
 spring:
   cloud:
     gateway:
-      routes:
-        - id: customer-service
-          uri: lb://CUSTOMER-SERVICE
-          predicates:
-            - Path=/demo/**
+      # If using Gateway MVC (as seen in your logs), use the 'mvc' prefix
+      mvc:
+        routes:
+          - id: customer-service
+            uri: http://localhost:8081
+            predicates:
+              - Path=/demo/**
+            filters:
+              # This matches your Java rewritePath("/demo(?<segment>/.*)", "/demo${segment}")
+              - RewritePath=/demo(?<segment>/?.*), /demo$\{segment}
+
+
 eureka:
   client:
     service-url:
